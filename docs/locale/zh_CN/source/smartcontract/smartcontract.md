@@ -50,24 +50,22 @@ Hyperledger Fabric 用户经常交替使用**智能合约**和**链码**。通�
 
 智能合约是应用程序开发的重点，正如我们所看到的，一个链码中可定义一个或多个智能合约。将链码部署到网络中以后，网络上的组织就都可以使用该链码中的所有智能合约。这意味着只有管理员才需要考虑链码；其他人都只用考虑智能合约。
 
-智能合约的核心是一组 `交易` 定义。例如，在 [`fabcar.js`](https://github.com/hyperledger/fabric-samples/blob/master/chaincode/fabcar/javascript/lib/fabcar.js#L93) 中，你可以看到一个创建了一辆新车的智能合约交易：
+智能合约的核心是一组 `交易` 定义。例如，在 [`assetTransfer.js`](https://github.com/hyperledger/fabric-samples/blob/{BRANCH}/asset-transfer-basic/chaincode-javascript/lib/assetTransfer.js#L67) 中，你可以看到一个创建了一项新资产的智能合约交易：
 
 ```javascript
-async createCar(ctx, carNumber, make, model, color, owner) {
-
-    const car = {
-        color,
-        docType: 'car',
-        make,
-        model,
-        owner,
+    async CreateAsset(ctx, id, color, size, owner, appraisedValue) {
+    const asset = {
+        ID: id,
+        Color: color,
+        Size: size,
+        Owner: owner,
+        AppraisedValue: appraisedValue,
     };
-
-    await ctx.stub.putState(carNumber, Buffer.from(JSON.stringify(car)));
+    return ctx.stub.putState(id, Buffer.from(JSON.stringify(asset)));
 }
 ```
 
-在[编写您的第一个应用程序](../write_first_app.html) 教程中，您可以了解更多关于 **Fabcar** 智能合约的信息。
+在[编写您的第一个应用程序](../write_first_app.html) 教程中，您可以了解更多关于 **基础** 智能合约的信息。
 
 智能合约几乎可以描述所有与多组织决策中数据不可变性相关的业务案例。智能合约开发人员的工作是将一个现有的业务流程（可能是管理金融价格或交付条件）用 JavaScript、GOLANG 或 Java 等编程语言来表示成一个智能合约。将数百年的法律语言转换为编程语言需要法律和技术方面的技能，**智能合约审核员**们不断地实践着这些技能。您可以在[开发应用程序主题](../developapps/developing_applications.html)中了解如何设计和开发智能合约。
 
